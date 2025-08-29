@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "orbital_railgun",
+  "version": "${version}",
+  "name": "Orbital Railgun",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/orbital_railgun/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "io.github.mishkis.orbital_railgun.client.OrbitalRailgunClient"
+    ],
+    "main": [
+      "io.github.mishkis.orbital_railgun.OrbitalRailgun"
+    ]
+  },
+  "mixins": [
+    "orbital_railgun.mixins.json",
+    {
+      "config": "orbital_railgun.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
