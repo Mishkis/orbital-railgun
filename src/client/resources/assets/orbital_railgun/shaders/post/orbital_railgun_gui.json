@@ -1,0 +1,17 @@
+{
+  "targets": [
+    "gui"
+  ],
+  "passes": [
+    {
+      "name": "orbital_railgun:gui",
+      "intarget": "minecraft:main",
+      "outtarget": "gui"
+    },
+    {
+      "name": "blit",
+      "intarget": "gui",
+      "outtarget": "minecraft:main"
+    }
+  ]
+}

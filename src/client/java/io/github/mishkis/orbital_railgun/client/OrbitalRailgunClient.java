@@ -1,9 +1,12 @@
 package io.github.mishkis.orbital_railgun.client;
 
-import io.github.mishkis.orbital_railgun.OrbitalRailgun;
 import io.github.mishkis.orbital_railgun.client.item.OrbitalRailgunRenderer;
+import io.github.mishkis.orbital_railgun.client.rendering.OrbitalRailgunGuiShader;
 import io.github.mishkis.orbital_railgun.item.OrbitalRailgunItems;
+import ladysnake.satin.api.event.PostWorldRenderCallback;
+import ladysnake.satin.api.event.ShaderEffectRenderCallback;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.render.item.BuiltinModelItemRenderer;
 import software.bernie.geckolib.animatable.client.RenderProvider;
 
@@ -22,5 +25,9 @@ public class OrbitalRailgunClient implements ClientModInitializer {
                 return this.renderer;
             }
         });
+
+        ClientTickEvents.END_CLIENT_TICK.register(OrbitalRailgunGuiShader.INSTANCE);
+        ShaderEffectRenderCallback.EVENT.register(OrbitalRailgunGuiShader.INSTANCE);
+        PostWorldRenderCallback.EVENT.register(OrbitalRailgunGuiShader.INSTANCE);
     }
 }
