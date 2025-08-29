@@ -46,10 +46,13 @@ public class OrbitalRailgunGuiShader implements PostWorldRenderCallback, ShaderE
 
     @Override
     public void onEndTick(MinecraftClient minecraftClient) {
+        // is it jank to disable the hud rendering here? yeah kinda
         if (shouldRender()) {
             ticks++;
-        } else {
+            this.client.options.hudHidden = true;
+        } else if (ticks != 0) {
             ticks = 0;
+            this.client.options.hudHidden = false;
         }
     }
 
