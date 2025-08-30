@@ -19,7 +19,6 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.EntityHitResult;
 import net.minecraft.util.hit.HitResult;
 import org.joml.Matrix4f;
-import org.joml.Vector3f;
 
 public class OrbitalRailgunGuiShader implements PostWorldRenderCallback, ShaderEffectRenderCallback, ClientTickEvents.EndTick {
     public static final Identifier ORBITAL_RAILGUN_GUI_SHADER = Identifier.of(OrbitalRailgun.MOD_ID, "shaders/post/orbital_railgun_gui.json");
@@ -38,6 +37,7 @@ public class OrbitalRailgunGuiShader implements PostWorldRenderCallback, ShaderE
     private final Uniform3f uniformBlockPosition = GUI_SHADER.findUniform3f("BlockPosition");
     private final Uniform1f uniformiTime = GUI_SHADER.findUniform1f("iTime");
 
+    public HitResult hitResult;
     private int ticks = 0;
 
     private boolean shouldRender() {
@@ -62,7 +62,7 @@ public class OrbitalRailgunGuiShader implements PostWorldRenderCallback, ShaderE
             uniformInverseTransformMatrix.set(GlMatrices.getInverseTransformMatrix(projectionMatrix));
             uniformCameraPosition.set(camera.getPos().toVector3f());
 
-            HitResult hitResult = client.player.raycast(100f, tickDelta, false);
+            hitResult = client.player.raycast(100f, tickDelta, false);
             switch (hitResult.getType()) {
                 case BLOCK:
                     uniformIsBlockHit.set(1);
