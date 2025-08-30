@@ -14,6 +14,7 @@ uniform vec3 BlockPosition;
 
 const vec3 red = 2. * vec3(0.878, 0.427, 0.427);
 const vec3 green = 2. * vec3(0.13, 0.65, 0.23);
+const vec3 blue = vec3(0.62, 0.93, 0.93);
 
 vec2 scale = vec2(0.);
 
@@ -100,10 +101,10 @@ void main() {
     float coveredByScreen = min(step(abs(uv.x), 0.45 * scale.x), step(abs(uv.y), 0.45 * scale.y)) * IsBlockHit;
     threshold *= coveredByScreen;
 
-    vec3 col = red;
-    vec3 original = texture(DiffuseSampler, texCoord).rgb + col * 0.03 / sDist(end_point) * coveredByScreen;
+    float withinAOE = length(end_point) - 24.;
+    vec3 original = texture(DiffuseSampler, texCoord).rgb + (red * 0.03 / sDist(end_point) + blue * 0.05 / abs(withinAOE) + blue/5. * step(withinAOE, 0.)) * coveredByScreen;
 
-    vec3 world = mix(original, vec3(col), threshold);
+    vec3 world = mix(original, red, threshold);
 
     vec3 overlay = renderUi(world, sdBox(uv, vec2(0.45)));
 
