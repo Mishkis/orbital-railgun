@@ -2,10 +2,12 @@ package io.github.mishkis.orbital_railgun.client.mixin;
 
 import io.github.mishkis.orbital_railgun.OrbitalRailgun;
 import io.github.mishkis.orbital_railgun.client.rendering.OrbitalRailgunGuiShader;
+import io.github.mishkis.orbital_railgun.client.rendering.OrbitalRailgunShader;
 import io.github.mishkis.orbital_railgun.item.OrbitalRailgunItem;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.option.GameOptions;
@@ -38,6 +40,7 @@ public class MinecraftClientMixin {
             if (hitResult.getType() != HitResult.Type.MISS && hitResult instanceof BlockHitResult blockHitResult) {
                 this.interactionManager.stopUsingItem(this.player);
                 orbitalRailgun.shoot(this.player);
+                OrbitalRailgunShader.INSTANCE.BlockPosition = blockHitResult.getBlockPos().toCenterPos().toVector3f();
 
                 PacketByteBuf buf = PacketByteBufs.create();
                 buf.writeItemStack(orbitalRailgun.getDefaultStack());

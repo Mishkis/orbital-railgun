@@ -1,0 +1,17 @@
+{
+  "targets": [
+    "strike"
+  ],
+  "passes": [
+    {
+      "name": "orbital_railgun:strike",
+      "intarget": "minecraft:main",
+      "outtarget": "strike"
+    },
+    {
+      "name": "blit",
+      "intarget": "strike",
+      "outtarget": "minecraft:main"
+    }
+  ]
+}
