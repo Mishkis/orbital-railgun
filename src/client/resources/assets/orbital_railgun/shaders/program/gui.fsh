@@ -26,6 +26,13 @@ in float viewWidth;
 
 out vec4 fragColor;
 
+// https://www.reedbeta.com/blog/hash-functions-for-gpu-rendering/
+float pcg_hash(uint seed) {
+    uint state = seed * 747796405u + 2891336453u;
+    uint word = ((state >> ((state >> 28u) + 4u)) ^ state) * 277803737u;
+    return float((word >> 22u) ^ word) / 2147483647.;
+}
+
 // https://iquilezles.org/articles/distfunctions/
 float sDist(vec3 p) {
     p = abs(p) - vec3(0.51);
@@ -48,8 +55,11 @@ vec3 renderUi(vec3 original, float dist) {
     float threshold = 0.25 * step(0., -dist) + step(0., dist) * 0.004 / dist;
     threshold = clamp(threshold, 0., 1.);
 
-    float static_multiplier = 1. + max(sin(20. * (texCoord.y) + 0.5 * iTime) - sin(80. * (texCoord.y) + 3. * iTime), 0.) / 2.;
-    overlay *= static_multiplier;
+    float scan_lines = 1. + max(sin(20. * (texCoord.y) + 0.5 * iTime) - sin(80. * (texCoord.y) + 3. * iTime), 0.) / 2.;
+    overlay *= scan_lines;
+
+    float glitch = 1. + 0.2 * pcg_hash(uint(round((texCoord.x + texCoord.y * viewHeight) * viewWidth) + round(iTime * viewWidth * viewHeight)));
+    overlay *= glitch;
 
     return mix(original, overlay, threshold);
 }
@@ -101,16 +111,21 @@ void main() {
     float coveredByScreen = min(step(abs(uv.x), 0.45 * scale.x), step(abs(uv.y), 0.45 * scale.y)) * IsBlockHit;
     threshold *= coveredByScreen;
 
-    float withinAOE = length(end_point) - 24.;
-    vec3 original = texture(DiffuseSampler, texCoord).rgb + (red * 0.03 / sDist(end_point) + blue * 0.05 / abs(withinAOE) + blue/5. * step(withinAOE, 0.)) * coveredByScreen;
+    float rotation = 0.2 * iTime;
+    mat2 rotationMatrix = mat2(cos(rotation), -sin(rotation), sin(rotation), cos(rotation));
+
+    vec2 AOE = end_point.xz * rotationMatrix;
+    float withinAOE = length(AOE) - 24.;
+    float indicator = 0.05 / min(abs(withinAOE), min(max(min(sdBox(AOE, vec2(5.5, 0.)), sdBox(AOE, vec2(0., 5.5))), -length(AOE) + 1.5), abs(length(AOE) - 2.5)));
+
+    vec3 original = texture(DiffuseSampler, texCoord).rgb + (red * 0.03 / sDist(end_point) + blue * indicator + blue / 5. * step(withinAOE, 0.)) * coveredByScreen;
 
     vec3 world = mix(original, red, threshold);
 
     vec3 overlay = renderUi(world, sdBox(uv, vec2(0.45)));
 
     uv.x *= max(viewWidth, viewHeight) / min(viewWidth, viewHeight);
-    float rotation = 0.2 * iTime;
-    uv *= mat2(cos(rotation), -sin(rotation), sin(rotation), cos(rotation));
+    uv *= rotationMatrix;
     float crosshair = max(min(sdBox(uv, vec2(0.001, 0.03)), sdBox(uv, vec2(0.03, 0.001))), -sdBox(uv, vec2(0.012)));
     overlay = max(overlay, renderUi(overlay, crosshair));
 

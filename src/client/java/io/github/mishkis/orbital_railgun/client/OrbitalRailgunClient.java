@@ -29,11 +29,9 @@ public class OrbitalRailgunClient implements ClientModInitializer {
         });
 
         ClientTickEvents.END_CLIENT_TICK.register(OrbitalRailgunGuiShader.INSTANCE);
-        ShaderEffectRenderCallback.EVENT.register(OrbitalRailgunGuiShader.INSTANCE);
         PostWorldRenderCallback.EVENT.register(OrbitalRailgunGuiShader.INSTANCE);
 
         ClientTickEvents.END_CLIENT_TICK.register(OrbitalRailgunShader.INSTANCE);
-        ShaderEffectRenderCallback.EVENT.register(OrbitalRailgunShader.INSTANCE);
         PostWorldRenderCallback.EVENT.register(OrbitalRailgunShader.INSTANCE);
     }
 }

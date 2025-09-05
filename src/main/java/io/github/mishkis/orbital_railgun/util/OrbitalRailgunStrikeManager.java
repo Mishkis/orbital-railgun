@@ -18,7 +18,7 @@ public class OrbitalRailgunStrikeManager {
 
     public static void tick(MinecraftServer server) {
         activeStrikes.forEach(((blockPos, keyPair) -> {
-            if (server.getTicks() - keyPair.getLeft() >= 620) {
+            if (server.getTicks() - keyPair.getLeft() >= 700) {
                 activeStrikes.remove(blockPos);
                 explode(blockPos, server.getWorld(keyPair.getRight()));
             }

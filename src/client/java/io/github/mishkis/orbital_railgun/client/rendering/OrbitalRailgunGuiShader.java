@@ -3,7 +3,6 @@ package io.github.mishkis.orbital_railgun.client.rendering;
 import io.github.mishkis.orbital_railgun.OrbitalRailgun;
 import io.github.mishkis.orbital_railgun.item.OrbitalRailgunItem;
 import ladysnake.satin.api.managed.uniform.Uniform1f;
-import ladysnake.satin.api.managed.uniform.Uniform3f;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.util.Identifier;
@@ -44,7 +43,7 @@ public class OrbitalRailgunGuiShader extends AbstractOrbitalRailgunShader {
     @Override
     public void onWorldRendered(Camera camera, float tickDelta, long nanoTime) {
         if (shouldRender()) {
-            hitResult = client.player.raycast(100f, tickDelta, false);
+            hitResult = client.player.raycast(300f, tickDelta, false);
             switch (hitResult.getType()) {
                 case BLOCK:
                     uniformIsBlockHit.set(1);

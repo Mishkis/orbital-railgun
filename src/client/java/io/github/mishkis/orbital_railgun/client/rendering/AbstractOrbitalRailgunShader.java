@@ -15,7 +15,7 @@ import net.minecraft.client.render.Camera;
 import net.minecraft.util.Identifier;
 import org.joml.Matrix4f;
 
-public abstract class AbstractOrbitalRailgunShader implements PostWorldRenderCallback, ShaderEffectRenderCallback, ClientTickEvents.EndTick {
+public abstract class AbstractOrbitalRailgunShader implements PostWorldRenderCallback, ClientTickEvents.EndTick {
     protected final MinecraftClient client = MinecraftClient.getInstance();
 
     private final Matrix4f projectionMatrix = new Matrix4f();
@@ -48,12 +48,7 @@ public abstract class AbstractOrbitalRailgunShader implements PostWorldRenderCal
             uniformInverseTransformMatrix.set(GlMatrices.getInverseTransformMatrix(projectionMatrix));
             uniformCameraPosition.set(camera.getPos().toVector3f());
             uniformiTime.set((ticks + tickDelta)/20f);
-        }
-    }
 
-    @Override
-    public void renderShaderEffects(float tickDelta) {
-        if (shouldRender()) {
             SHADER.render(tickDelta);
         }
     }
