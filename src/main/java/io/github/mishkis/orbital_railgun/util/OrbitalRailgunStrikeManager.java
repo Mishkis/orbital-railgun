@@ -12,7 +12,7 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.joml.Vector2i;
 
@@ -28,19 +28,30 @@ public class OrbitalRailgunStrikeManager {
 
     public static void tick(MinecraftServer server) {
         activeStrikes.forEach(((keyPair1, keyPair2) -> {
-            if (server.getTicks() - keyPair2.getLeft() >= 700) {
+            float age = server.getTicks() - keyPair2.getLeft();
+            BlockPos blockPos = keyPair1.getLeft();
+            List<Entity> entities = keyPair1.getRight();
+            if (age >= 700) {
                 activeStrikes.remove(keyPair1);
-                BlockPos blockPos = keyPair1.getLeft();
 
                 ServerWorld world = server.getWorld(keyPair2.getRight());
 
-                keyPair1.getRight().forEach((entity -> {
+                entities.forEach(entity -> {
                     if (entity.getPos().subtract(blockPos.toCenterPos()).lengthSquared() <= RADIUS_SQUARED) {
                         entity.damage(new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).getEntry(STRIKE_DAMAGE).get()), 100000f);
                     }
-                }));
+                });
 
                 explode(blockPos, world);
+            } else if (age >= 400) {
+                entities.forEach(entity -> {
+                    Vec3d dir = blockPos.toCenterPos().subtract(entity.getPos());
+                    double mag = Math.min(1./Math.abs(dir.length() - 20.) * 4. * (age - 400.)/300., 5.);
+                    dir = dir.normalize();
+
+                    entity.addVelocity(dir.multiply(mag));
+                    entity.velocityModified = true;
+                });
             }
         }));
     }
