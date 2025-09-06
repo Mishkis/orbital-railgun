@@ -35,7 +35,7 @@ public class MinecraftClientMixin {
 
     @Inject(method = "handleInputEvents", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;isUsingItem()Z"))
     public void shootOnAttack(CallbackInfo ci) {
-        if (player.getActiveItem().getItem() instanceof OrbitalRailgunItem orbitalRailgun && this.options.attackKey.isPressed()) {
+        if (player.getActiveItem().getItem() instanceof OrbitalRailgunItem orbitalRailgun && this.options.attackKey.isPressed() && OrbitalRailgunShader.INSTANCE.BlockPosition == null) {
             HitResult hitResult = OrbitalRailgunGuiShader.INSTANCE.hitResult;
             if (hitResult.getType() != HitResult.Type.MISS && hitResult instanceof BlockHitResult blockHitResult) {
                 this.interactionManager.stopUsingItem(this.player);

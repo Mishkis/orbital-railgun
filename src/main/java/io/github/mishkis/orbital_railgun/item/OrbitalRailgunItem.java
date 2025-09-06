@@ -54,7 +54,7 @@ public class OrbitalRailgunItem extends Item implements GeoItem {
     }
 
     public void shoot(PlayerEntity user) {
-        user.getItemCooldownManager().set(this, 120);
+        user.getItemCooldownManager().set(this, 2400);
     }
 
     @Override

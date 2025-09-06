@@ -24,7 +24,7 @@ public class OrbitalRailgunShader extends AbstractOrbitalRailgunShader {
 
     @Override
     public void onEndTick(MinecraftClient minecraftClient) {
-        if (ticks >= 1400) {
+        if (ticks >= 1600) {
             BlockPosition = null;
         }
 
