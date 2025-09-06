@@ -1,6 +1,7 @@
 {
   "targets": [
-    "strike"
+    "strike",
+    "chromatic_abjuration"
   ],
   "passes": [
     {
@@ -9,8 +10,13 @@
       "outtarget": "strike"
     },
     {
-      "name": "blit",
+      "name": "orbital_railgun:chromatic_abjuration",
       "intarget": "strike",
+      "outtarget": "chromatic_abjuration"
+    },
+    {
+      "name": "blit",
+      "intarget": "chromatic_abjuration",
       "outtarget": "minecraft:main"
     }
   ]
