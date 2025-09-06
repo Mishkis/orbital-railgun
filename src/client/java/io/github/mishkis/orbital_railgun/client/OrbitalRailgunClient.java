@@ -9,7 +9,9 @@ import ladysnake.satin.api.event.PostWorldRenderCallback;
 import ladysnake.satin.api.event.ShaderEffectRenderCallback;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.render.item.BuiltinModelItemRenderer;
+import net.minecraft.util.math.BlockPos;
 import software.bernie.geckolib.animatable.client.RenderProvider;
 
 public class OrbitalRailgunClient implements ClientModInitializer {
@@ -27,6 +29,14 @@ public class OrbitalRailgunClient implements ClientModInitializer {
                 return this.renderer;
             }
         });
+
+        ClientPlayNetworking.registerGlobalReceiver(OrbitalRailgun.CLIENT_SYNC_PACKET_ID, ((minecraftClient, clientPlayNetworkHandler, packetByteBuf, packetSender) -> {
+            BlockPos blockPos = packetByteBuf.readBlockPos();
+
+            minecraftClient.execute(() -> {
+                OrbitalRailgunShader.INSTANCE.BlockPosition = blockPos.toCenterPos().toVector3f();
+            });
+        }));
 
         ClientTickEvents.END_CLIENT_TICK.register(OrbitalRailgunGuiShader.INSTANCE);
         PostWorldRenderCallback.EVENT.register(OrbitalRailgunGuiShader.INSTANCE);
