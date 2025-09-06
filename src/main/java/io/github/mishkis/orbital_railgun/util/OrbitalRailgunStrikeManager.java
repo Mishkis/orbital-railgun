@@ -2,6 +2,7 @@ package io.github.mishkis.orbital_railgun.util;
 
 import io.github.mishkis.orbital_railgun.OrbitalRailgun;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;
 import net.minecraft.registry.RegistryKey;
@@ -15,24 +16,28 @@ import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.joml.Vector2i;
 
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class OrbitalRailgunStrikeManager {
-    public static ConcurrentHashMap<BlockPos, Pair<Integer, RegistryKey<World>>> activeStrikes = new ConcurrentHashMap<BlockPos, Pair<Integer, RegistryKey<World>>>();
+    public static ConcurrentHashMap<Pair<BlockPos, List<Entity>>, Pair<Integer, RegistryKey<World>>> activeStrikes = new ConcurrentHashMap<Pair<BlockPos, List<Entity>>, Pair<Integer, RegistryKey<World>>>();
     private static final RegistryKey<DamageType> STRIKE_DAMAGE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(OrbitalRailgun.MOD_ID, "strike"));
     private static final int RADIUS = 24;
     private static final int RADIUS_SQUARED = RADIUS * RADIUS;
     private static final Boolean[][] mask = new Boolean[RADIUS * 2 + 1][RADIUS * 2 + 1];
 
     public static void tick(MinecraftServer server) {
-        activeStrikes.forEach(((blockPos, keyPair) -> {
-            if (server.getTicks() - keyPair.getLeft() >= 700) {
-                activeStrikes.remove(blockPos);
+        activeStrikes.forEach(((keyPair1, keyPair2) -> {
+            if (server.getTicks() - keyPair2.getLeft() >= 700) {
+                activeStrikes.remove(keyPair1);
+                BlockPos blockPos = keyPair1.getLeft();
 
-                ServerWorld world = server.getWorld(keyPair.getRight());
+                ServerWorld world = server.getWorld(keyPair2.getRight());
 
-                world.getOtherEntities(null, Box.of(blockPos.toCenterPos(), 48., 500, 48.), (entity -> entity.getPos().lengthSquared() >= RADIUS_SQUARED)).forEach((entity -> {
-                    entity.damage(new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).getEntry(STRIKE_DAMAGE).get()), 100000f);
+                keyPair1.getRight().forEach((entity -> {
+                    if (entity.getPos().subtract(blockPos.toCenterPos()).lengthSquared() <= RADIUS_SQUARED) {
+                        entity.damage(new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).getEntry(STRIKE_DAMAGE).get()), 100000f);
+                    }
                 }));
 
                 explode(blockPos, world);

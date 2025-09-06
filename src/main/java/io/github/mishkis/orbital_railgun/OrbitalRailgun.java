@@ -7,6 +7,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
@@ -14,6 +15,7 @@ import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 public class OrbitalRailgun implements ModInitializer {
@@ -34,11 +36,15 @@ public class OrbitalRailgun implements ModInitializer {
 
             minecraftServer.execute(() -> {
                 orbitalRailgun.shoot(serverPlayerEntity);
-                OrbitalRailgunStrikeManager.activeStrikes.put(blockPos, new Pair<>(minecraftServer.getTicks(), serverPlayerEntity.getWorld().getRegistryKey()));
 
-                serverPlayerEntity.getWorld().getOtherEntities(serverPlayerEntity, Box.of(blockPos.toCenterPos(), 500., 500., 500.), (entity -> entity instanceof PlayerEntity)).forEach((entity) -> {
-                    ServerPlayNetworking.send((ServerPlayerEntity) entity, CLIENT_SYNC_PACKET_ID, PacketByteBufs.create().writeBlockPos(blockPos));
-                });
+                List<Entity> nearby = serverPlayerEntity.getWorld().getOtherEntities(null, Box.of(blockPos.toCenterPos(), 500., 500., 500.));
+                OrbitalRailgunStrikeManager.activeStrikes.put(new Pair<>(blockPos, nearby), new Pair<>(minecraftServer.getTicks(), serverPlayerEntity.getWorld().getRegistryKey()));
+
+                nearby.forEach((entity -> {
+                    if (entity instanceof ServerPlayerEntity serverPlayer) {
+                        ServerPlayNetworking.send(serverPlayer, CLIENT_SYNC_PACKET_ID, PacketByteBufs.create().writeBlockPos(blockPos));
+                    }
+                }));
             });
         }));
 
