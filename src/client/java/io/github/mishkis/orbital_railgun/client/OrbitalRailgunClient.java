@@ -35,6 +35,7 @@ public class OrbitalRailgunClient implements ClientModInitializer {
 
             minecraftClient.execute(() -> {
                 OrbitalRailgunShader.INSTANCE.BlockPosition = blockPos.toCenterPos().toVector3f();
+                OrbitalRailgunShader.INSTANCE.Dimension = minecraftClient.world.getRegistryKey();
             });
         }));
 

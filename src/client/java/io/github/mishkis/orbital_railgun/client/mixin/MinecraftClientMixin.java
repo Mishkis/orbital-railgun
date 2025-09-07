@@ -41,6 +41,7 @@ public class MinecraftClientMixin {
                 this.interactionManager.stopUsingItem(this.player);
                 orbitalRailgun.shoot(this.player);
                 OrbitalRailgunShader.INSTANCE.BlockPosition = blockHitResult.getBlockPos().toCenterPos().toVector3f();
+                OrbitalRailgunShader.INSTANCE.Dimension = player.getWorld().getRegistryKey();
 
                 PacketByteBuf buf = PacketByteBufs.create();
                 buf.writeItemStack(orbitalRailgun.getDefaultStack());

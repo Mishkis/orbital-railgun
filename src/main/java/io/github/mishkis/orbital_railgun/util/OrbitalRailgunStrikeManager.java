@@ -31,13 +31,14 @@ public class OrbitalRailgunStrikeManager {
             float age = server.getTicks() - keyPair2.getLeft();
             BlockPos blockPos = keyPair1.getLeft();
             List<Entity> entities = keyPair1.getRight();
+            RegistryKey<World> dimension = keyPair2.getRight();
             if (age >= 700) {
                 activeStrikes.remove(keyPair1);
 
-                ServerWorld world = server.getWorld(keyPair2.getRight());
+                ServerWorld world = server.getWorld(dimension);
 
                 entities.forEach(entity -> {
-                    if (entity.getPos().subtract(blockPos.toCenterPos()).lengthSquared() <= RADIUS_SQUARED) {
+                    if (entity.getWorld().getRegistryKey() == dimension && entity.getPos().subtract(blockPos.toCenterPos()).lengthSquared() <= RADIUS_SQUARED) {
                         entity.damage(new DamageSource(world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).getEntry(STRIKE_DAMAGE).get()), 100000f);
                     }
                 });
@@ -45,12 +46,14 @@ public class OrbitalRailgunStrikeManager {
                 explode(blockPos, world);
             } else if (age >= 400) {
                 entities.forEach(entity -> {
-                    Vec3d dir = blockPos.toCenterPos().subtract(entity.getPos());
-                    double mag = Math.min(1./Math.abs(dir.length() - 20.) * 4. * (age - 400.)/300., 5.);
-                    dir = dir.normalize();
+                    if (entity.getWorld().getRegistryKey() == dimension) {
+                        Vec3d dir = blockPos.toCenterPos().subtract(entity.getPos());
+                        double mag = Math.min(1. / Math.abs(dir.length() - 20.) * 4. * (age - 400.) / 300., 5.);
+                        dir = dir.normalize();
 
-                    entity.addVelocity(dir.multiply(mag));
-                    entity.velocityModified = true;
+                        entity.addVelocity(dir.multiply(mag));
+                        entity.velocityModified = true;
+                    }
                 });
             }
         }));
