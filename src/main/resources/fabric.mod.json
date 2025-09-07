@@ -3,8 +3,8 @@
   "id": "orbital_railgun",
   "version": "${version}",
   "name": "Orbital Railgun",
-  "description": "",
-  "authors": [],
+  "description": "Adds an Orbital Railgun to the game!",
+  "authors": ["Mishkis"],
   "contact": {},
   "license": "MIT",
   "icon": "assets/orbital_railgun/icon.png",
@@ -28,5 +28,12 @@
     "fabricloader": ">=${loader_version}",
     "fabric": "*",
     "minecraft": "${minecraft_version}"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.source": "https://github.com/Mishkis/orbital-railgun"
+      }
+    }
   }
 }
