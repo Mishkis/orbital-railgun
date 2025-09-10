@@ -24,12 +24,13 @@ public class OrbitalRailgunShader extends AbstractOrbitalRailgunShader {
 
     @Override
     protected boolean shouldRender() {
-        return BlockPosition != null && MinecraftClient.getInstance().world.getRegistryKey() == Dimension;
+        var world = MinecraftClient.getInstance().world;
+        return BlockPosition != null && world != null && world.getRegistryKey() == Dimension;
     }
 
     @Override
     public void onEndTick(MinecraftClient minecraftClient) {
-        if (ticks >= 1600 || minecraftClient.world.getRegistryKey() != Dimension) {
+        if (ticks >= 1600 || minecraftClient.world == null || minecraftClient.world.getRegistryKey() != Dimension) {
             BlockPosition = null;
             Dimension = null;
         }
