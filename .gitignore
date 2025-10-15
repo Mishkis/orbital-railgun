@@ -10,6 +10,11 @@ out/
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
+# VS Code
+.settings/
+.vscode/
+bin/
+
 # JIRA plugin
 atlassian-ide-plugin.xml
 

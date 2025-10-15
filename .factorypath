@@ -1,0 +1,12 @@
+<factorypath>
+    <factorypathentry kind="EXTJAR" id="C:\Users\julia\.gradle\caches\modules-2\files-2.1\net.fabricmc\mapping-io\0.2.1\2a1aeedce104191bbb9e39e26abfbfeaf9b0590b\mapping-io-0.2.1.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\julia\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-util\9.8\395f1c1f035258511f27bc9b2583d76e4b143f59\asm-util-9.8.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\julia\.gradle\caches\fabric-loom\1.20.1\net.fabricmc.yarn.1_20_1.1.20.1+build.10-v2\mappings.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\julia\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-analysis\9.8\b9747a320844b6cb1eacd90d8ecfd260a16c01d3\asm-analysis-9.8.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\julia\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-tree\9.8\18419ca5b77a2f81097c741e7872e6ab8d2f40d\asm-tree-9.8.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\julia\.gradle\caches\modules-2\files-2.1\net.fabricmc\sponge-mixin\0.16.3+mixin.0.8.7\3e535042688d1265447e52ad86950b7d9678a5fa\sponge-mixin-0.16.3+mixin.0.8.7.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\julia\.gradle\caches\modules-2\files-2.1\io.github.llamalad7\mixinextras-fabric\0.5.0\91a83dfb7abd320f6236bd1fcf5c0ff143d59a13\mixinextras-fabric-0.5.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\julia\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm\9.8\dc19ecb3f7889b7860697215cae99c0f9b6f6b4b\asm-9.8.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\julia\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm-commons\9.8\36e4d212970388e5bd2c5180292012502df461bb\asm-commons-9.8.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="EXTJAR" id="C:\Users\julia\.gradle\caches\modules-2\files-2.1\net.fabricmc\fabric-mixin-compile-extensions\0.6.0\6fda0c85c419f0a259da017a1424f27507eb30f0\fabric-mixin-compile-extensions-0.6.0.jar" enabled="true" runInBatchMode="false"/>
+</factorypath>
