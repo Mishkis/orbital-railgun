@@ -123,3 +123,7 @@ runs/
 # Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
 !gradle-wrapper.jar
 
+# Java Stuff
+.classpath
+.factorypath
+.project
