@@ -1,0 +1,8 @@
+{
+  "item.orbital_railgun.orbital_railgun": "Canhão Orbital",
+  "itemGroup.orbital_railgun_group": "Canhão Orbital",
+  "death.attack.strike": "%1$s foi obliterado por um Ataque Orbital",
+  "subtitle.orbital_railgun.railgun_shoot": "Canhão orbital dispara",
+  "subtitle.orbital_railgun.scope_on": "Mira online",
+  "subtitle.orbital_railgun.equip": "Canhão orbital equipado"
+}
