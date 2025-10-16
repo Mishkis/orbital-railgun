@@ -1,6 +1,5 @@
 {
   "item.orbital_railgun.orbital_railgun": "Орбитальная Рельсовая Пушка",
-  "itemGroup.orbital_railgun_group": "Орбитальная Рельсовая Пушка",
   "death.attack.strike": "%1$s был уничтожен Орбитальным Ударом",
   "subtitle.orbital_railgun.railgun_shoot": "Орбитальная пушка стреляет",
   "subtitle.orbital_railgun.scope_on": "Прицел включен",
