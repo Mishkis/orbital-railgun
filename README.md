@@ -25,3 +25,9 @@ If you've ever wanted to destroy large swathes of land in an instant while havin
 Once you've crafted the Orbital Railgun, hold `right click` to aim and then `left click` to fire.
 
 *Note: This mod uses the Satin API for shaders, yet you shouldn't have to install it as it's included as a jar-in-jar dependency.*
+
+## Credits
+
+Thank you to KingIronMan2011 for:
+ - adding Arabic, German, English, Spanish, French, Hindi, Italian, Japanese, Korean, Dutch, Polish, Portugese (Brazil), Russian, Swedish and Chinese (Simplified)
+ - fixed that players in spectator mode get pulled in by the beam
