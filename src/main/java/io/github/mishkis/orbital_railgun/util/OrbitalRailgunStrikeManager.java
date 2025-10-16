@@ -5,6 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.damage.DamageType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.MinecraftServer;
@@ -46,6 +47,9 @@ public class OrbitalRailgunStrikeManager {
                 explode(blockPos, world);
             } else if (age >= 400) {
                 entities.forEach(entity -> {
+                    if (entity instanceof PlayerEntity player && player.isSpectator()) {
+                        return;
+                    }
                     if (entity.getWorld().getRegistryKey() == dimension) {
                         Vec3d dir = blockPos.toCenterPos().subtract(entity.getPos());
                         double mag = Math.min(1. / Math.abs(dir.length() - 20.) * 4. * (age - 400.) / 300., 5.);
