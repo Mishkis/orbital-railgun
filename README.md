@@ -28,6 +28,6 @@ Once you've crafted the Orbital Railgun, hold `right click` to aim and then `lef
 
 ## Credits
 
-Thank you to KingIronMan2011 for:
- - adding Arabic, German, English, Spanish, French, Hindi, Italian, Japanese, Korean, Dutch, Polish, Portugese (Brazil), Russian, Swedish and Chinese (Simplified)
- - fixed that players in spectator mode get pulled in by the beam
+Thank you to **KingIronMan2011** for:
+ - adding Arabic, German, English, Spanish, French, Hindi, Italian, Japanese, Korean, Dutch, Polish, Portugese (Brazil), Russian, Swedish and Chinese (Simplified) translations
+ - fixing that players in spectator mode get pulled in by the beam
