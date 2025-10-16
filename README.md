@@ -26,6 +26,10 @@ Once you've crafted the Orbital Railgun, hold `right click` to aim and then `lef
 
 *Note: This mod uses the Satin API for shaders, yet you shouldn't have to install it as it's included as a jar-in-jar dependency.*
 
+## Need help?
+
+Check out our [Discord Server](https://discord.gg/G5j7K6unt9)!
+
 ## Credits
 
 Thank you to **KingIronMan2011** for:
