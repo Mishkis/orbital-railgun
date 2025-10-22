@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class OrbitalRailgunStrikeManager {
     public static ConcurrentHashMap<Pair<BlockPos, List<Entity>>, Pair<Integer, RegistryKey<World>>> activeStrikes = new ConcurrentHashMap<Pair<BlockPos, List<Entity>>, Pair<Integer, RegistryKey<World>>>();
     private static final RegistryKey<DamageType> STRIKE_DAMAGE = RegistryKey.of(RegistryKeys.DAMAGE_TYPE, Identifier.of(OrbitalRailgun.MOD_ID, "strike"));
-    private static final int RADIUS = 24;
+    private static final int RADIUS = 48;
     private static final int RADIUS_SQUARED = RADIUS * RADIUS;
     private static final Boolean[][] mask = new Boolean[RADIUS * 2 + 1][RADIUS * 2 + 1];
 
